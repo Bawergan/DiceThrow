@@ -28,9 +28,10 @@ class Item:
         return f"{self.name}: {self.damage}, {self.defence}"
 
 class Entity:
-    def __init__(self, name: str = 'noname', health: int = 0) -> None:
+    def __init__(self, name: str = 'noname', health: int = 0, isBot: bool = True) -> None:
         self.health = health
         self.name = name
+        self.isBot = isBot
         self.inventory = [None]
         self.arm_slot = [None]
     
