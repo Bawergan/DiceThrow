@@ -19,10 +19,12 @@ class Dice:
         return str(self.cube_pos)
 
 class Item:
-    def __init__(self, name:str='noname', damage:int=0, defence:int=0) -> None:
+    def __init__(self, name:str='noname', damage:int=0, defence:int=1, healing: int = 0, durability: int = 100) -> None:
         self.name = name
         self.damage = damage
         self.defence = defence
+        self.healing = healing
+        self.durability = durability
     
     def __str__(self) -> str:
         return f"{self.name}: {self.damage}, {self.defence}"
@@ -32,7 +34,7 @@ class Entity:
         self.health = health
         self.name = name
         self.isBot = isBot
-        self.inventory = [None]
+        self.inventory = []
         self.arm_slot = [None]
     
     def __str__(self) -> str:
