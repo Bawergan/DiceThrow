@@ -27,19 +27,26 @@ def startGameLoop(players, instaDice = False):
     while len(players) > 1:
         if order % len(players) == 0:
             move += 1
-
             print(f"ход {move}")
             print('-'*10)
 
         ent1 = players[order%len(players)]
         ent2 = players[(order+1)%len(players)]
 
-        message = ''
-        for i, j in enumerate(ent1.inventory):
-            message += f'\n{i+1} -> {j.name}'
-
-        console_input = '0'
         if not ent1.isBot:
+            message = ''
+            for i, j in enumerate(players):
+                message += f'\n{i+1} -> {j.name} with {j.arm_slot[0].name}'
+            console_input = '0'
+            while console_input not in list(str(i+1) for i in range(len(players))):
+                print(f"""chose: {message}""")
+                console_input = input()
+            ent2 = players[int(console_input)-1]
+
+            message = ''
+            for i, j in enumerate(ent1.inventory):
+                message += f'\n{i+1} -> {j.name}'
+            console_input = '0'
             while console_input not in list(str(i+1) for i in range(len(ent1.inventory))):
                 print(f"""chose: {message}""")
                 console_input = input()
@@ -65,10 +72,10 @@ def startGameLoop(players, instaDice = False):
             
         heal_amount = int(ent1.arm_slot[0].healing * dice_roll/10)
         if heal_amount != 0:
-            ent1.takeDamage(-heal_amount)
-            print(f"""{ent1.name} healed {heal_amount} hp with
+            ent2.takeDamage(-heal_amount)
+            print(f"""{ent2.name} healed {heal_amount} hp with
                   {ent1.arm_slot[0].healing} 
-                  up to {ent1.health} health""")
+                  up to {ent2.health} health""")
                 
         ent1.arm_slot[0].durability -= 1    
         if ent1.arm_slot[0].durability <= 0:
