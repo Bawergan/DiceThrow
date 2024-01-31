@@ -6,12 +6,11 @@ class Dice:
         self.cube_range = cube_range
         self.cube_pos = 0
     
-    def throw(self) -> int:
+    def throw(self, instaThrow: bool = False) -> int:
+        if instaThrow: 
+            self.cube_pos = randrange(self.cube_range)
+            return self.cube_pos
         guiInstruments.spinTheNumbers(self.cube_range)
-        self.cube_pos = randrange(self.cube_range)
-        return self.cube_pos
-    
-    def instaThrow(self) -> int:
         self.cube_pos = randrange(self.cube_range)
         return self.cube_pos
     
